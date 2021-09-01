@@ -13,13 +13,16 @@ namespace Toy.Pubsub.Services
 
         public void Publish(string name, string value)
         {
-            var action = _pubSubManager.GetAction(name);
-            action(value);
+            var pubSubStage = _pubSubManager.GetPubSubStage(name);
+            pubSubStage.Publish(value);
         }
 
-        public void Subscribe(string name, Action<string> action)
+        public int Subscribe(string name, Action<string> action)
         {
-            _pubSubManager.SetAction(name, action);
+            _pubSubManager.RegisterPubSubStage(name);
+            var pubSubStage = _pubSubManager.GetPubSubStage(name);
+            var ticket = pubSubStage.SaveAction(action);
+            return ticket;
         }
     }
 }

@@ -11,6 +11,6 @@ namespace Toy.Pubsub.Services
         // TODO : Add the currently registered Pub/Sub event lookup function
 
         void Publish(string name, string value);
-        void Subscribe(string name, Action<string> action);
+        int Subscribe(string name, Action<string> action);
     }
 }

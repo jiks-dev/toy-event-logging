@@ -1,28 +1,33 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using Toy.Pubsub.Models;
 using Toy.Pubsub.Services;
 
 namespace Toy.Pubsub
 {
     public class PubSubManager : IPubSubManager
     {
-        private ConcurrentDictionary<string, Action<string>> actions;
+        private ConcurrentDictionary<string, PubSubStage> pubSubStages;
 
         public PubSubManager()
         {
-            actions = new ConcurrentDictionary<string, Action<string>>();
+            pubSubStages = new ConcurrentDictionary<string, PubSubStage>();
         }
 
-        public Action<string> GetAction(string name)
+        public PubSubStage GetPubSubStage(string name)
         {
-            // TODO : throw null error 
-            actions.TryGetValue(name, out var action);
-            return action;
+            pubSubStages.TryGetValue(name, out var pubSubStage);
+            return pubSubStage;
         }
 
-        public void SetAction(string name, Action<string> action)
+        public void RegisterPubSubStage(string name)
         {
-            actions.TryAdd(name, action);
+            var isFind = pubSubStages.TryGetValue(name, out var pubSubStage);
+            if (isFind == false)
+            {
+                pubSubStage = new PubSubStage(name);
+                pubSubStages.TryAdd(name, pubSubStage);
+            }
         }
     }
 }

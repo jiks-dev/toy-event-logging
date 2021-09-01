@@ -8,8 +8,8 @@ namespace Toy.Sample1.Component.Controllers
     [Route("sample-first")]
     public class SampleFirstController : Controller
     {
-        private const string PublishEventName = "SampleFirstController";
-        private const string SubscribeEventName = "SampleSecondController";
+        private const string PublishEventName = "SampleSecondController";
+        private const string SubscribeEventName = "SampleFirstController";
 
         private readonly IPubSubService _pubSubService;
 
