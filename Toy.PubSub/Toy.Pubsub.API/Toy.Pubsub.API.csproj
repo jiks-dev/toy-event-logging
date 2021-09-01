@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Toy.Sample2.Component\Toy.Sample2.Component.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
